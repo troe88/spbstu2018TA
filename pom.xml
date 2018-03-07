@@ -1,4 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -72,6 +72,11 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.19.1</version>
                 <configuration>
+                    <systemPropertyVariables>
+                        <webdriver.chrome.driver>
+                            C:/Selenium/chromedriver.exe
+                        </webdriver.chrome.driver>
+                    </systemPropertyVariables>
                     <suiteXmlFiles>
                         <suiteXmlFiles>src/test/resources/runners/${test.runner}</suiteXmlFiles>
                     </suiteXmlFiles>
@@ -110,6 +115,12 @@
                 <test.runner>group-parallel-runner.xml</test.runner>
             </properties>
         </profile>
+        <profile>
+            <id>simple_selenium</id>
+            <properties>
+                <test.runner>simple-runner-selenium.xml</test.runner>
+            </properties>
+        </profile>
     </profiles>
 
     <dependencies>
@@ -122,6 +133,21 @@
             <groupId>org.aeonbits.owner</groupId>
             <artifactId>owner-java8</artifactId>
             <version>1.0.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.14</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.external</groupId>
+            <artifactId>apache-commons</artifactId>
+            <version>10.0-b28</version>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>3.10.0</version>
         </dependency>
     </dependencies>
 </project>
