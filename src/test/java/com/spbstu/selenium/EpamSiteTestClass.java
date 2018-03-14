@@ -26,7 +26,7 @@ public class EpamSiteTestClass {
     private static final String DROPDOWN_CSS_SELECTOR = ".profile-photo";
     private static final String LOGIN_CSS_SELECTOR = "#Login";
     private static final String PASSWORD_CSS_SELECTOR = "#Password";
-    private static final String USERNAME_XPATH_SELECTOR = "/html/body/div/header/div/nav/ul[2]/li/a/div/span";
+    private static final String USERNAME_CSS_SELECTOR = ".profile-photo > span";
     private static final String USER_FULL_DISPLAY_NAME = "PITER CHAILOVSKII";
     private static final String DIAGNOSTIC_STRING = "Actual: %s but expected: %s";
     private static final String ANNOTATION_CSS_SELECTOR = ".main-content > p";
@@ -66,7 +66,7 @@ public class EpamSiteTestClass {
         element = driver.findElement(By.cssSelector(PASSWORD_CSS_SELECTOR));
         element.sendKeys(PASSWORD + Keys.ENTER);
 
-        element = driver.findElement(By.xpath(USERNAME_XPATH_SELECTOR));
+        element = driver.findElement(By.cssSelector(USERNAME_CSS_SELECTOR));
         element.getText();
         sa.assertEquals(element.getText(), USER_FULL_DISPLAY_NAME
                 ,String.format(DIAGNOSTIC_STRING, driver.getTitle(), INDEX_PAGE));
