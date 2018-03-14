@@ -19,6 +19,18 @@ public interface TestConfig extends Config {
     @Key("test.user.password")
     String password();
 
+    @Key("test.user.displayName")
+    String displayName();
+
+    @Key("test.site.title")
+    String title();
+
+    @Key("test.site.homepage")
+    String homepage();
+
+    @Key("test.site.contactformpage")
+    String contactformpage();
+
     @Key("webdriver.chrome.driver")
     String pathToDriver();
 }
