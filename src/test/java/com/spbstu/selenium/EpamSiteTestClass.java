@@ -14,7 +14,6 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 public class EpamSiteTestClass {
@@ -23,7 +22,8 @@ public class EpamSiteTestClass {
     private static final String INDEX_PAGE = "Index Page";
     private static final String LOGIN = "epam";
     private static final String PASSWORD = "1234";
-    private static final String DROPDOWN_XPATH_SELECTOR = "/html/body/div/header/div/nav/ul[2]/li/a";
+    //private static final String DROPDOWN_XPATH_SELECTOR = "/html/body/div/header/div/nav/ul[2]/li/a";
+    private static final String DROPDOWN_CSS_SELECTOR = ".profile-photo";
     private static final String LOGIN_CSS_SELECTOR = "#Login";
     private static final String PASSWORD_CSS_SELECTOR = "#Password";
     private static final String USERNAME_XPATH_SELECTOR = "/html/body/div/header/div/nav/ul[2]/li/a/div/span";
@@ -59,7 +59,7 @@ public class EpamSiteTestClass {
         Assert.assertEquals(driver.getTitle(), INDEX_PAGE,
                 String.format("Actual: %s but expected: %s", driver.getTitle(), INDEX_PAGE));
 
-        WebElement element = driver.findElement(By.xpath(DROPDOWN_XPATH_SELECTOR));
+        WebElement element = driver.findElement(By.cssSelector(DROPDOWN_CSS_SELECTOR));
         element.click();
         element = driver.findElement(By.cssSelector(LOGIN_CSS_SELECTOR));
         element.sendKeys(LOGIN);
