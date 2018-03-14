@@ -22,7 +22,6 @@ public class EpamSiteTestClass {
     private static final String INDEX_PAGE = "Index Page";
     private static final String LOGIN = "epam";
     private static final String PASSWORD = "1234";
-    //private static final String DROPDOWN_XPATH_SELECTOR = "/html/body/div/header/div/nav/ul[2]/li/a";
     private static final String DROPDOWN_CSS_SELECTOR = ".profile-photo";
     private static final String LOGIN_CSS_SELECTOR = "#Login";
     private static final String PASSWORD_CSS_SELECTOR = "#Password";
@@ -55,28 +54,35 @@ public class EpamSiteTestClass {
 
         driver.manage().window().maximize();
 
-
+        // Проверяем, что заголовок страницы совпадает с ожидаемым
         Assert.assertEquals(driver.getTitle(), INDEX_PAGE,
                 String.format("Actual: %s but expected: %s", driver.getTitle(), INDEX_PAGE));
 
-        WebElement element = driver.findElement(By.cssSelector(DROPDOWN_CSS_SELECTOR));
+        WebElement element;
+        // выполняем клик по иконке пользователя
+        element = driver.findElement(By.cssSelector(DROPDOWN_CSS_SELECTOR));
         element.click();
+        // заполняем поле логин
         element = driver.findElement(By.cssSelector(LOGIN_CSS_SELECTOR));
         element.sendKeys(LOGIN);
+        // заполняем поле пароля и нажимаем клавишу Enter
         element = driver.findElement(By.cssSelector(PASSWORD_CSS_SELECTOR));
         element.sendKeys(PASSWORD + Keys.ENTER);
 
+        // проверяем, что имя пользователя совпадает с ожидаемым
         element = driver.findElement(By.cssSelector(USERNAME_CSS_SELECTOR));
         element.getText();
         sa.assertEquals(element.getText(), USER_FULL_DISPLAY_NAME
                 ,String.format(DIAGNOSTIC_STRING, driver.getTitle(), INDEX_PAGE));
 
+        // получаем массив картинок, и смотрим, что их количество соответствует ожидаемому
         sa.assertEquals(driver.getTitle(), INDEX_PAGE
                 ,String.format(DIAGNOSTIC_STRING, driver.getTitle(), INDEX_PAGE));
         int sz = driver.findElements(By.cssSelector(".benefit-icon")).size();
         sa.assertEquals(sz, 4
                 ,String.format(DIAGNOSTIC_STRING, sz, 4));
 
+        // проверяем совпадения текста под фотографиями
         // TODO -- грамотно вынести в константы. Негоже в 4 утра делать дз к паре
         String[] assertStrings = {"To include good practices\n" +
                 "and ideas from successful\n" +
@@ -97,15 +103,16 @@ public class EpamSiteTestClass {
                     ,DIAGNOSTIC_STRING);
         }
 
+        // проверяем совпадения заголовка текста в теге h3 с ожидаемым
         sa.assertEquals(driver.findElement(By.cssSelector(TITLE_CSS_SELECTOR)).getText(),
                 EPAM_FRAMEWORK_WISHES, DIAGNOSTIC_STRING);
 
+        // проверяем основное содержимое страницы на совпадение с ожидаемым
         sa.assertEquals(driver.findElement(By.cssSelector( ANNOTATION_CSS_SELECTOR)).getText(),
                 "LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISICING ELIT, SED DO EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. UT ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO LABORIS NISI UT ALIQUIP EX EA COMMODO CONSEQUAT DUIS AUTE IRURE DOLOR IN REPREHENDERIT IN VOLUPTATE VELIT ESSE CILLUM DOLORE EU FUGIAT NULLA PARIATUR."
                 , DIAGNOSTIC_STRING);
 
-
-
+        // выполняем SoftAssert
         sa.assertAll();
     }
 
