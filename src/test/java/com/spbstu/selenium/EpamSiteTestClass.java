@@ -1,9 +1,6 @@
 package com.spbstu.selenium;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -18,6 +15,7 @@ import java.util.stream.Collectors;
 
 public class EpamSiteTestClass {
 
+    // TODO make enum structure
     private static final String EPAM_TEST_LINK = "https://jdi-framework.github.io/tests";
     private static final String INDEX_PAGE = "Index Page";
     private static final String LOGIN = "epam";
@@ -45,12 +43,12 @@ public class EpamSiteTestClass {
     @Test
     public void epamLoginSimpleTest() throws InterruptedException {
         driver.navigate().to(EPAM_TEST_LINK);
-
+        WebDriver f = null;
         // не ждём одну секунду, а делаем хитрее -- ждём, пока браузер загрузится
         // Ссылка на C# код, но полиморфизм сохранён:
         // https://stackoverflow.com/questions/5868439/wait-for-page-load-in-selenium
         Wait<WebDriver> wait = new WebDriverWait(driver, 5);
-        wait.until(driver1 -> driver.executeScript("return document.readyState").equals("complete"));
+        wait.until(d -> ((JavascriptExecutor) d).executeScript("return document.readyState").equals("complete"));
 
         driver.manage().window().maximize();
 
@@ -58,9 +56,8 @@ public class EpamSiteTestClass {
         Assert.assertEquals(driver.getTitle(), INDEX_PAGE,
                 String.format("Actual: %s but expected: %s", driver.getTitle(), INDEX_PAGE));
 
-        WebElement element;
         // выполняем клик по иконке пользователя
-        element = driver.findElement(By.cssSelector(DROPDOWN_CSS_SELECTOR));
+        WebElement element = driver.findElement(By.cssSelector(DROPDOWN_CSS_SELECTOR));
         element.click();
         // заполняем поле логин
         element = driver.findElement(By.cssSelector(LOGIN_CSS_SELECTOR));
@@ -84,6 +81,7 @@ public class EpamSiteTestClass {
 
         // проверяем совпадения текста под фотографиями
         // TODO -- грамотно вынести в константы. Негоже в 4 утра делать дз к паре
+        // TODO -- порядок не важен, можно сделать через стримы
         String[] assertStrings = {"To include good practices\n" +
                 "and ideas from successful\n" +
                 "EPAM projec"
@@ -99,8 +97,7 @@ public class EpamSiteTestClass {
         // TODO вот тут сомнение, можно ли это было сделать через лямбды, не прибегая к циклам?
         // TODO Думаю, да, подумать об индексировании стрима средствами ФП
         for (int i = 0; i < assertStrings.length; i++) {
-            sa.assertEquals(res.get(i), assertStrings[i]
-                    ,DIAGNOSTIC_STRING);
+            sa.assertEquals(res.get(i), assertStrings[i], DIAGNOSTIC_STRING);
         }
 
         // проверяем совпадения заголовка текста в теге h3 с ожидаемым
