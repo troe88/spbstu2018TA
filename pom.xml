@@ -13,7 +13,7 @@
     <properties>
         <testng.version>6.10</testng.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <test.runner></test.runner>
+        <test.runner>simple-runner-selenium.xml</test.runner>
     </properties>
 
     <build>
@@ -74,7 +74,7 @@
                 <configuration>
                     <systemPropertyVariables>
                         <webdriver.chrome.driver>
-                            C:/Selenium/chromedriver.exe
+                            C:/Program Files (x86)/Google/Chrome/chromedriver.exe
                         </webdriver.chrome.driver>
                     </systemPropertyVariables>
                     <suiteXmlFiles>
