@@ -1,4 +1,4 @@
-package com.spbstu.selenium;
+package com.spbstu.selenium.homework1;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -10,25 +10,12 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static com.spbstu.selenium.homework1.EpamSiteTestEnum.*;
 
 public class EpamSiteTestClass {
-
-    // TODO make enum structure
-    private static final String EPAM_TEST_LINK = "https://jdi-framework.github.io/tests";
-    private static final String INDEX_PAGE = "Index Page";
-    private static final String LOGIN = "epam";
-    private static final String PASSWORD = "1234";
-    private static final String DROPDOWN_CSS_SELECTOR = ".profile-photo";
-    private static final String LOGIN_CSS_SELECTOR = "#Login";
-    private static final String PASSWORD_CSS_SELECTOR = "#Password";
-    private static final String USERNAME_CSS_SELECTOR = ".profile-photo > span";
-    private static final String USER_FULL_DISPLAY_NAME = "PITER CHAILOVSKII";
-    private static final String DIAGNOSTIC_STRING = "Actual: %s but expected: %s";
-    private static final String ANNOTATION_CSS_SELECTOR = ".main-content > p";
-    private static final String TITLE_CSS_SELECTOR = ".main-content > h3";
-    private static final String EPAM_FRAMEWORK_WISHES = "EPAM FRAMEWORK WISHES…";
     private ChromeDriver driver;
     private SoftAssert sa;
 
@@ -39,11 +26,9 @@ public class EpamSiteTestClass {
         driver = new ChromeDriver();
     }
 
-    // TODO можно разбить на независимые тесты вместо SoftAssert, как вариант :)
     @Test
     public void epamLoginSimpleTest() throws InterruptedException {
-        driver.navigate().to(EPAM_TEST_LINK);
-        WebDriver f = null;
+        driver.navigate().to(EpamSiteTestEnum.EPAM_TEST_LINK);
         // не ждём одну секунду, а делаем хитрее -- ждём, пока браузер загрузится
         // Ссылка на C# код, но полиморфизм сохранён:
         // https://stackoverflow.com/questions/5868439/wait-for-page-load-in-selenium
@@ -75,30 +60,17 @@ public class EpamSiteTestClass {
         // получаем массив картинок, и смотрим, что их количество соответствует ожидаемому
         sa.assertEquals(driver.getTitle(), INDEX_PAGE
                 ,String.format(DIAGNOSTIC_STRING, driver.getTitle(), INDEX_PAGE));
-        int sz = driver.findElements(By.cssSelector(".benefit-icon")).size();
+        int sz = driver.findElements(By.cssSelector(ICONS_CSS_SELECTOR)).size();
         sa.assertEquals(sz, 4
                 ,String.format(DIAGNOSTIC_STRING, sz, 4));
 
         // проверяем совпадения текста под фотографиями
-        // TODO -- грамотно вынести в константы. Негоже в 4 утра делать дз к паре
-        // TODO -- порядок не важен, можно сделать через стримы
-        String[] assertStrings = {"To include good practices\n" +
-                "and ideas from successful\n" +
-                "EPAM projec"
-                ,"To be flexible and\n" +
-                "customizable"
-                ,"To be multiplatform"
-                ,"Already have good base\n" +
-                "(about 20 internal and\n" +
-                "some external projects),\n" +
-                "wish to get more…"};
-        List<String> res = driver.findElements(By.cssSelector(".benefit-txt"))
-                .stream().map(WebElement::getText).collect(Collectors.toList());
-        // TODO вот тут сомнение, можно ли это было сделать через лямбды, не прибегая к циклам?
-        // TODO Думаю, да, подумать об индексировании стрима средствами ФП
-        for (int i = 0; i < assertStrings.length; i++) {
-            sa.assertEquals(res.get(i), assertStrings[i], DIAGNOSTIC_STRING);
-        }
+        List<String> assertStrings = Arrays.asList(WISH1, WISH2, WISH3, WISH4);
+        driver.findElements(By.cssSelector(".benefit-txt"))
+                .stream().map(WebElement::getText).forEach(
+                        text->sa.assertTrue(assertStrings.contains(text),
+                                WISH_NOT_FOUND_DIAGNOSTIC_STRING + text)
+                );
 
         // проверяем совпадения заголовка текста в теге h3 с ожидаемым
         sa.assertEquals(driver.findElement(By.cssSelector(TITLE_CSS_SELECTOR)).getText(),
@@ -106,8 +78,7 @@ public class EpamSiteTestClass {
 
         // проверяем основное содержимое страницы на совпадение с ожидаемым
         sa.assertEquals(driver.findElement(By.cssSelector( ANNOTATION_CSS_SELECTOR)).getText(),
-                "LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISICING ELIT, SED DO EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. UT ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO LABORIS NISI UT ALIQUIP EX EA COMMODO CONSEQUAT DUIS AUTE IRURE DOLOR IN REPREHENDERIT IN VOLUPTATE VELIT ESSE CILLUM DOLORE EU FUGIAT NULLA PARIATUR."
-                , DIAGNOSTIC_STRING);
+                LOREM_IPSUM_DOLOR, DIAGNOSTIC_STRING);
 
         // выполняем SoftAssert
         sa.assertAll();

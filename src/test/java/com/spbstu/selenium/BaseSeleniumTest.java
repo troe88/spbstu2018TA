@@ -8,7 +8,7 @@ import org.testng.annotations.BeforeSuite;
  * Created by dmitry on 07.03.2018.
  */
 public class BaseSeleniumTest {
-    TestConfig config;
+    public TestConfig config;
 
     @BeforeSuite
     public void beforeSuite() {
