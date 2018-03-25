@@ -1,4 +1,4 @@
-package com.spbstu;
+package com.spbstu.utils;
 
 
 import lombok.AllArgsConstructor;

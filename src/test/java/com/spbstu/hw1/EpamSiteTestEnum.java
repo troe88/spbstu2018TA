@@ -1,4 +1,4 @@
-package com.spbstu.selenium.homework1;
+package com.spbstu.hw1;
 
 enum EpamSiteTestEnum {;
 

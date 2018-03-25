@@ -1,6 +1,6 @@
 package com.spbstu.selenide;
 
-import com.spbstu.HOME_PAGE_DATA;
+import com.spbstu.utils.HOME_PAGE_DATA;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 

@@ -1,4 +1,4 @@
-package com.spbstu.selenium.homework1;
+package com.spbstu.hw1;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -13,7 +13,7 @@ import org.testng.asserts.SoftAssert;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.spbstu.selenium.homework1.EpamSiteTestEnum.*;
+import static com.spbstu.hw1.EpamSiteTestEnum.*;
 
 public class EpamSiteTestClass {
     private ChromeDriver driver;
