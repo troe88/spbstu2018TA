@@ -11,8 +11,6 @@ import static com.codeborne.selenide.Condition.text;
 // Page Object
 public class HomePageSelenide {
 
-    private WebDriver driver;
-
     @FindBy(css = ".profile-photo")
     private SelenideElement profilePhoto;
 
