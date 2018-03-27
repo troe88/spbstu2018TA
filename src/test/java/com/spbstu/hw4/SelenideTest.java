@@ -15,7 +15,9 @@ public class SelenideTest extends BaseSelenideTest {
         EpamTestSite.homePage.open();
         EpamTestSite.homePage.login("epam", "1234");
         EpamTestSite.homePage.checkUserLogIn("PITER CHAILOVSKII");
+        EpamTestSite.homePage.checkInterface();
         EpamTestSite.homePage.openSubmenu();
+        EpamTestSite.homePage.openElementsPage();
         Selenide.Wait();
     }
 }

@@ -1,13 +1,19 @@
 package com.spbstu.hw4.pages;
 
+import com.codeborne.selenide.CollectionCondition;
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import com.spbstu.hw4.EpamTestSite;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
+import java.util.Optional;
 
+import static com.codeborne.selenide.CollectionCondition.size;
 import static com.codeborne.selenide.Condition.have;
 import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Selenide.$$;
 
 /**
  * URL: https://jdi-framework.github.io/tests
@@ -27,6 +33,18 @@ public class HomePage {
 
     @FindBy(css = "form .btn-login")
     private SelenideElement submit;
+
+    @FindBy(css = ".main-title")
+    private SelenideElement mainTitle;
+
+    @FindBy(css = ".main-txt")
+    private SelenideElement mainText;
+
+    @FindBy(css = ".benefit-icon")
+    private ElementsCollection benefitIcons;
+
+    @FindBy(css = ".benefit-txt")
+    private ElementsCollection benefitTxt;
 
     @FindBy(css = "ul.sidebar-menu > li.sub-menu > a")
     private SelenideElement serviceDropdownHeader;
@@ -53,7 +71,20 @@ public class HomePage {
         serviceDropdownHeader.click();
     }
 
+    public void openElementsPage() {
+        serviceDropdown.stream()
+                .filter(elm -> "Different elements".equals(elm.getText())).findFirst()
+                .ifPresent(SelenideElement::click);
+    }
+
     public void checkUserLogIn(String userName) {
         profilePhoto.should(have(text(userName)));
+    }
+
+    public void checkInterface() {
+        mainTitle.should(have(text("EPAM FRAMEWORK WISHES…")));
+        mainText.should(have(text("LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISICING ELIT, SED DO EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. UT ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO LABORIS NISI UT ALIQUIP EX EA COMMODO CONSEQUAT DUIS AUTE IRURE DOLOR IN REPREHENDERIT IN VOLUPTATE VELIT ESSE CILLUM DOLORE EU FUGIAT NULLA PARIATUR.")));
+        benefitIcons.shouldHaveSize(4);
+        benefitTxt.shouldHave(size(4));
     }
 }
