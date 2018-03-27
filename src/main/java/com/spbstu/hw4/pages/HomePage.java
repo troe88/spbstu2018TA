@@ -1,19 +1,16 @@
 package com.spbstu.hw4.pages;
 
-import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import com.spbstu.hw4.EpamTestSite;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
-import static com.codeborne.selenide.CollectionCondition.size;
+import static com.codeborne.selenide.CollectionCondition.texts;
 import static com.codeborne.selenide.Condition.have;
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selenide.$$;
 
 /**
  * URL: https://jdi-framework.github.io/tests
@@ -47,10 +44,16 @@ public class HomePage {
     private ElementsCollection benefitTxt;
 
     @FindBy(css = "ul.sidebar-menu > li.sub-menu > a")
+    private SelenideElement serviceDropdownSidebar;
+
+    @FindBy(css = ".m-l8>li>.dropdown-toggle")
     private SelenideElement serviceDropdownHeader;
 
     @FindBy(css = "ul.sidebar-menu > li.sub-menu > ul.sub > li > a")
-    private List<SelenideElement> serviceDropdown;
+    private ElementsCollection serviceDropdownSubmenuSidebar;
+
+    @FindBy(css = "ul.dropdown-menu > li > a")
+    private ElementsCollection serviceDropdownSubmenuHeader;
 
     public HomePage() {
         Selenide.page(this);
@@ -67,12 +70,16 @@ public class HomePage {
         submit.pressEnter();
     }
 
-    public void openSubmenu() {
+    public void openHeaderSubmenu() {
         serviceDropdownHeader.click();
     }
 
+    public void openSidebarSubmenu() {
+        serviceDropdownSidebar.click();
+    }
+
     public void openElementsPage() {
-        serviceDropdown.stream()
+        serviceDropdownSubmenuSidebar.stream()
                 .filter(elm -> "Different elements".equals(elm.getText())).findFirst()
                 .ifPresent(SelenideElement::click);
     }
@@ -85,6 +92,19 @@ public class HomePage {
         mainTitle.should(have(text("EPAM FRAMEWORK WISHES…")));
         mainText.should(have(text("LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISICING ELIT, SED DO EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. UT ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO LABORIS NISI UT ALIQUIP EX EA COMMODO CONSEQUAT DUIS AUTE IRURE DOLOR IN REPREHENDERIT IN VOLUPTATE VELIT ESSE CILLUM DOLORE EU FUGIAT NULLA PARIATUR.")));
         benefitIcons.shouldHaveSize(4);
-        benefitTxt.shouldHave(size(4));
+        benefitTxt.shouldHaveSize(4);
+        List<String> benefits = Arrays.asList("To include good practices\nand ideas from successful\nEPAM projec",
+                "To be flexible and\ncustomizable",
+                "To be multiplatform",
+                "Already have good base\n(about 20 internal and\nsome external projects),\nwish to get more…");
+        benefitTxt.shouldHave(texts(benefits));
+    }
+
+    public void checkSidebarSubmenu(List<String> items) {
+        serviceDropdownSubmenuSidebar.shouldHave(texts(items));
+    }
+
+    public void checkHeaderSubmenu(List<String> items) {
+        serviceDropdownSubmenuHeader.shouldHave(texts(items));
     }
 }
