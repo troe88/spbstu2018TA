@@ -11,6 +11,6 @@ public class BaseSelenideTest extends BaseSeleniumTest {
     @BeforeSuite
     public void beforeSuiteSelenide() {
         Configuration.browser = "CHROME";
-        Configuration.timeout = 4000;
+        Configuration.timeout = 30000;
     }
 }

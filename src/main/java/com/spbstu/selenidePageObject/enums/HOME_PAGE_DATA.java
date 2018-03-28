@@ -10,4 +10,9 @@ public enum HOME_PAGE_DATA {
     LOGIN("epam"), PASSWORD("1234"), USER_NAME("PITER CHAILOVSKII");
 
     private String value;
+
+    @Override
+    public String toString() {
+        return value;
+    }
 }
