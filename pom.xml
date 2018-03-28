@@ -121,6 +121,12 @@
                 <test.runner>simple-runner-selenium.xml</test.runner>
             </properties>
         </profile>
+        <profile>
+            <id>simple_selenide</id>
+            <properties>
+                <test.runner>simple-runner-selenide.xml</test.runner>
+            </properties>
+        </profile>
     </profiles>
 
     <dependencies>
