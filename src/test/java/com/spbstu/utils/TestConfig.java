@@ -21,4 +21,7 @@ public interface TestConfig extends Config {
 
     @Key("webdriver.chrome.driver")
     String pathToDriver();
+
+    @Key("remote.driver.url")
+    String remoteDriverAddress();
 }

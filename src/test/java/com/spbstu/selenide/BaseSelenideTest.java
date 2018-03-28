@@ -10,7 +10,6 @@ import org.testng.annotations.BeforeSuite;
 public class BaseSelenideTest extends BaseSeleniumTest {
     @BeforeSuite
     public void beforeSuiteSelenide() {
-        Configuration.browser = "CHROME";
-        Configuration.timeout = 30000;
+        Configuration.timeout = 5000;
     }
 }

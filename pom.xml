@@ -14,6 +14,7 @@
         <testng.version>6.10</testng.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <test.runner></test.runner>
+        <remote.driver.url>127.0.0.1:4444</remote.driver.url>
     </properties>
 
     <build>
@@ -73,9 +74,8 @@
                 <version>2.19.1</version>
                 <configuration>
                     <systemPropertyVariables>
-                        <webdriver.chrome.driver>
-                            C:/Selenium/chromedriver.exe
-                        </webdriver.chrome.driver>
+                        <webdriver.chrome.driver>C:/Selenium/chromedriver.exe</webdriver.chrome.driver>
+                        <selenide.browser>com.spbstu.selenide.CustomWebDriverProvider</selenide.browser>
                     </systemPropertyVariables>
                     <suiteXmlFiles>
                         <suiteXmlFiles>src/test/resources/runners/${test.runner}</suiteXmlFiles>
