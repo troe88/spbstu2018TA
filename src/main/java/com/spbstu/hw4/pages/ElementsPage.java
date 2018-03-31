@@ -13,8 +13,6 @@ import static com.codeborne.selenide.Condition.*;
 
 public class ElementsPage {
 
-    private static final String PAGE_URL = "https://jdi-framework.github.io/tests/page8.htm";
-
     @FindBy(css = ".label-checkbox")
     private ElementsCollection checkboxes;
 
@@ -41,8 +39,8 @@ public class ElementsPage {
 
 
 
-    public void open() {
-        Selenide.open(PAGE_URL);
+    public void open(String page_url) {
+        Selenide.open(page_url);
     }
 
     public void checkPage() {
@@ -56,18 +54,7 @@ public class ElementsPage {
     }
 
     private SelenideElement getElement(Element element) {
-        switch(element) {
-            case WATER:
-                return checkboxes.get(0);
-            case EARTH:
-                return checkboxes.get(1);
-            case WIND:
-                return checkboxes.get(2);
-            case FIRE:
-                return checkboxes.get(3);
-            default:
-                throw new RuntimeException("No such element exception");
-        }
+        return checkboxes.get(element.ordinal());
     }
 
     private SelenideElement getMetal(Metal metal) {

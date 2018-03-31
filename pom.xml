@@ -130,6 +130,15 @@
                 <test.user.displayName>PITER CHAILOVSKII</test.user.displayName>
             </properties>
         </profile>
+        <profile>
+            <id>home_work_4_runner</id>
+            <properties>
+                <test.runner>homework-4-runner.xml</test.runner>
+                <test.user.name>epam</test.user.name>
+                <test.user.password>1234</test.user.password>
+                <test.user.displayName>PITER CHAILOVSKII</test.user.displayName>
+            </properties>
+        </profile>
     </profiles>
 
     <dependencies>

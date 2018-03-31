@@ -5,9 +5,9 @@ import com.codeborne.selenide.SelenidePageFactory;
 import com.spbstu.hw4.pages.ElementsPage;
 import com.spbstu.hw4.pages.HomePage;
 
-public class EpamTestSite {
-    public static HomePage homePage;
-    public static ElementsPage elementsPage;
+public class HomeWork4Site {
+    static HomePage homePage;
+    static ElementsPage elementsPage;
 
     public static void init() {
         homePage = new HomePage();

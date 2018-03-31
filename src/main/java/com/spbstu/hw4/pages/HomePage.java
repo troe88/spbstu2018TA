@@ -17,8 +17,13 @@ import static com.codeborne.selenide.Condition.text;
  */
 public class HomePage {
 
-    private static final String PAGE_URL = "https://jdi-framework.github.io/tests";
-
+    private static final String TEXT_TITLE = "EPAM FRAMEWORK WISHES…";
+    private static final String TEXT_CONTENTS = "LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISICING ELIT, SED DO EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. UT ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO LABORIS NISI UT ALIQUIP EX EA COMMODO CONSEQUAT DUIS AUTE IRURE DOLOR IN REPREHENDERIT IN VOLUPTATE VELIT ESSE CILLUM DOLORE EU FUGIAT NULLA PARIATUR.";
+    private static final List<String> LIST_OF_BENEFIT = Arrays.asList("To include good practices\nand ideas from successful\nEPAM projec",
+            "To be flexible and\ncustomizable",
+            "To be multiplatform",
+            "Already have good base\n(about 20 internal and\nsome external projects),\nwish to get more…");
+    private static final String DIFFERENT_ELEMENTS = "Different elements";
     @FindBy(css = ".profile-photo")
     private SelenideElement profilePhoto;
 
@@ -59,8 +64,8 @@ public class HomePage {
         Selenide.page(this);
     }
 
-    public void open() {
-        Selenide.open(PAGE_URL);
+    public void open(String page_url) {
+        Selenide.open(page_url);
     }
 
     public void login(String login, String password) {
@@ -80,7 +85,7 @@ public class HomePage {
 
     public void openElementsPage() {
         serviceDropdownSubmenuSidebar.stream()
-                .filter(elm -> "Different elements".equals(elm.getText())).findFirst()
+                .filter(elm -> DIFFERENT_ELEMENTS.equals(elm.getText())).findFirst()
                 .ifPresent(SelenideElement::click);
     }
 
@@ -89,15 +94,11 @@ public class HomePage {
     }
 
     public void checkInterface() {
-        mainTitle.should(have(text("EPAM FRAMEWORK WISHES…")));
-        mainText.should(have(text("LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISICING ELIT, SED DO EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. UT ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO LABORIS NISI UT ALIQUIP EX EA COMMODO CONSEQUAT DUIS AUTE IRURE DOLOR IN REPREHENDERIT IN VOLUPTATE VELIT ESSE CILLUM DOLORE EU FUGIAT NULLA PARIATUR.")));
+        mainTitle.should(have(text(TEXT_TITLE)));
+        mainText.should(have(text(TEXT_CONTENTS)));
         benefitIcons.shouldHaveSize(4);
         benefitTxt.shouldHaveSize(4);
-        List<String> benefits = Arrays.asList("To include good practices\nand ideas from successful\nEPAM projec",
-                "To be flexible and\ncustomizable",
-                "To be multiplatform",
-                "Already have good base\n(about 20 internal and\nsome external projects),\nwish to get more…");
-        benefitTxt.shouldHave(texts(benefits));
+        benefitTxt.shouldHave(texts(LIST_OF_BENEFIT));
     }
 
     public void checkSidebarSubmenu(List<String> items) {

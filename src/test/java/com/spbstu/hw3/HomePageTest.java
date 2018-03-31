@@ -14,7 +14,7 @@ import static com.spbstu.hw3.HomePageTestEnum.*;
 
 public class HomePageTest {
 
-    public static final int IMAGE_COUNT = 4;
+    private static final int IMAGE_COUNT = 4;
 
     private ChromeDriver driver;
     private SoftAssert sa;
@@ -25,9 +25,9 @@ public class HomePageTest {
         driver = new ChromeDriver();
         // разворачиваем на весь экран
         driver.manage().window().maximize();
-        EpamTestSite.init(driver);
+        HomeWork3Site.init(driver);
         // получаем страницу
-        page = EpamTestSite.homePage;
+        page = HomeWork3Site.homePage;
     }
 
     @BeforeTest
