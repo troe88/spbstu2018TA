@@ -94,15 +94,17 @@ public class ElementsPage {
 
     public void selectElement(Element element, boolean state) {
         SelenideElement selenideElement = getElementCheckbox(element);
-        if (state != selenideElement.isSelected()) selenideElement.setSelected(state);
+        if (state != selenideElement.isSelected()) {
+            selenideElement.setSelected(state);
+            // log here, otherwise condition needn't to be changed
+            log.add(0, String.format("%s %s: condition changed to %b", getCurrentTime(), element.getValue(), state));
+        }
         // assert
         if (state) {
             selenideElement.shouldBe(checked);
         } else {
             selenideElement.shouldNotBe(checked);
         }
-        // log
-        log.add(0, String.format("%s %s: condition changed to %b", getCurrentTime(), element.getValue(), state));
     }
     
     public void selectMetal(Metal metal) {
