@@ -110,20 +110,20 @@ public class ElementsPage {
     public void selectMetal(Metal metal) {
         SelenideElement selenideElement = getMetal(metal);
         selenideElement.click();
-        // assert
-        selenideElement.shouldBe(selected);
         // log
         log.add(0, String.format("%s metal: value changed to %s", getCurrentTime(), metal.getValue()));
+        // assert
+        selenideElement.shouldBe(selected);
     }
 
     public void selectColor(Color color) {
         SelenideElement selenideElement = getColor(color);
         dropdown.click();
         selenideElement.click();
-        // assert
-        dropdown.shouldHave(value(color.getValue()));
         // log
         log.add(0, String.format("%s Colors: value changed to %s", getCurrentTime(), color.getValue()));
+        // assert
+        dropdown.shouldHave(value(color.getValue()));
     }
 
     public void checkLogOutput() {
