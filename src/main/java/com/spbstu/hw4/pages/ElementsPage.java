@@ -6,12 +6,18 @@ import com.codeborne.selenide.SelenideElement;
 import com.spbstu.hw4.utils.Color;
 import com.spbstu.hw4.utils.Element;
 import com.spbstu.hw4.utils.Metal;
+import lombok.Getter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import static com.codeborne.selenide.CollectionCondition.exactTexts;
 import static com.codeborne.selenide.CollectionCondition.size;
+import static com.codeborne.selenide.CollectionCondition.texts;
 import static com.codeborne.selenide.Condition.*;
 
 public class ElementsPage {
@@ -19,7 +25,7 @@ public class ElementsPage {
     @FindBy(css = ".label-checkbox")
     private ElementsCollection checkboxes;
 
-    @FindBy(css = ".label-radio")
+    @FindBy(css = ".label-radio > input")
     private ElementsCollection radiobuttons;
 
     @FindBy(css = ".colors>select")
@@ -40,7 +46,15 @@ public class ElementsPage {
     @FindBy(css = ".panel-body-list.logs")
     private SelenideElement logOutput;
 
+    @FindBy(css = ".logs > li")
+    private ElementsCollection logEntries;
+
+    @Getter
     private List<String> log;
+
+    public ElementsPage() {
+        log = new java.util.LinkedList<>();
+    }
 
     public void open(String page_url) {
         Selenide.open(page_url);
@@ -64,6 +78,12 @@ public class ElementsPage {
         return getElement(element).find(By.cssSelector("input"));
     }
 
+    private String getCurrentTime() {
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
+
     private SelenideElement getMetal(Metal metal) {
         return radiobuttons.get(metal.ordinal());
     }
@@ -75,22 +95,36 @@ public class ElementsPage {
     public void selectElement(Element element, boolean state) {
         SelenideElement selenideElement = getElementCheckbox(element);
         if (state != selenideElement.isSelected()) selenideElement.setSelected(state);
+        // assert
         if (state) {
             selenideElement.shouldBe(checked);
         } else {
             selenideElement.shouldNotBe(checked);
         }
+        // log
+        log.add(0, String.format("%s %s: condition changed to %b", getCurrentTime(), element.getValue(), state));
     }
     
     public void selectMetal(Metal metal) {
         SelenideElement selenideElement = getMetal(metal);
         selenideElement.click();
-        //selenideElement.shouldBe(selected);
+        // assert
+        selenideElement.shouldBe(selected);
+        // log
+        log.add(0, String.format("%s metal: value changed to %s", getCurrentTime(), metal.getValue()));
     }
 
     public void selectColor(Color color) {
         SelenideElement selenideElement = getColor(color);
         dropdown.click();
         selenideElement.click();
+        // assert
+        dropdown.shouldHave(value(color.getValue()));
+        // log
+        log.add(0, String.format("%s Colors: value changed to %s", getCurrentTime(), color.getValue()));
+    }
+
+    public void checkLogOutput() {
+        logEntries.shouldHave(texts(log));
     }
 }

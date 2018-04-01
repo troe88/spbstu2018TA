@@ -56,8 +56,11 @@ public class EpamSiteSelenideTest extends BaseSelenideTest {
         elementsPage.selectColor(Color.YELLOW);
         // Check in logs section selected values and status (true|false)
         // HINT: generate your own logs and check is a subset
+        elementsPage.checkLogOutput();
         elementsPage.selectElement(Element.WATER, false);
         elementsPage.selectElement(Element.WIND, false);
+        // Check again
+        elementsPage.checkLogOutput();
 
         Selenide.Wait();
     }

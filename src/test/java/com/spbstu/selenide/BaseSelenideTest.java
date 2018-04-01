@@ -11,7 +11,7 @@ public class BaseSelenideTest {
         Configuration.timeout = 4000;
         Configuration.pollingInterval = 100; // "-Dselenide.pollingInterval=50"
 
-        Configuration.reportsFolder = "build/reports/tests";
+        Configuration.reportsFolder = "build/reports/tests"; // в неё складываются скриншоты
 
 
     }
