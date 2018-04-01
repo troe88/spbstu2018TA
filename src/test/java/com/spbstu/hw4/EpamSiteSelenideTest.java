@@ -56,11 +56,6 @@ public class EpamSiteSelenideTest extends BaseSelenideTest {
         elementsPage.selectColor(Color.YELLOW);
         // Check in logs section selected values and status (true|false)
         // HINT: generate your own logs and check is a subset
-        /* TODO
-            + 1. rename classes EpamSiteSelenideTest etc. to more conscious name
-            2. element of checkbox MUST BE INPUT
-            + 3. make MVN tests! Urgent!
-         */
         elementsPage.selectElement(Element.WATER, false);
         elementsPage.selectElement(Element.WIND, false);
 

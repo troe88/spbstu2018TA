@@ -6,7 +6,10 @@ import com.codeborne.selenide.SelenideElement;
 import com.spbstu.hw4.utils.Color;
 import com.spbstu.hw4.utils.Element;
 import com.spbstu.hw4.utils.Metal;
+import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
+
+import java.util.List;
 
 import static com.codeborne.selenide.CollectionCondition.size;
 import static com.codeborne.selenide.Condition.*;
@@ -37,7 +40,7 @@ public class ElementsPage {
     @FindBy(css = ".panel-body-list.logs")
     private SelenideElement logOutput;
 
-
+    private List<String> log;
 
     public void open(String page_url) {
         Selenide.open(page_url);
@@ -57,46 +60,26 @@ public class ElementsPage {
         return checkboxes.get(element.ordinal());
     }
 
+    private SelenideElement getElementCheckbox(Element element) {
+        return getElement(element).find(By.cssSelector("input"));
+    }
+
     private SelenideElement getMetal(Metal metal) {
-        switch(metal) {
-            case GOLD:
-                return radiobuttons.get(0);
-            case SILVER:
-                return radiobuttons.get(1);
-            case BRONZE:
-                return radiobuttons.get(2);
-            case SELEN:
-                return radiobuttons.get(3);
-            default:
-                throw new RuntimeException("No such metal exception");
-        }
+        return radiobuttons.get(metal.ordinal());
     }
 
     private SelenideElement getColor(Color color) {
-        switch(color) {
-            case RED:
-                return dropdownItems.get(0);
-            case GREEN:
-                return dropdownItems.get(1);
-            case BLUE:
-                return dropdownItems.get(2);
-            case YELLOW:
-                return dropdownItems.get(3);
-            default:
-                throw new RuntimeException("No such color exception");
-        }
+        return dropdownItems.get(color.ordinal());
     }
 
     public void selectElement(Element element, boolean state) {
-        SelenideElement selenideElement = getElement(element);
-        /*boolean checked = "true".equals(selenideElement.getAttribute("checked"));
-        if (state != checked) selenideElement.click();
-        selenideElement.shouldHave(attribute("checked", String.valueOf(state)));*/
-        selenideElement.setSelected(state);
-        /*if (state)
+        SelenideElement selenideElement = getElementCheckbox(element);
+        if (state != selenideElement.isSelected()) selenideElement.setSelected(state);
+        if (state) {
             selenideElement.shouldBe(checked);
-        else
-            selenideElement.shouldNotBe(checked);*/
+        } else {
+            selenideElement.shouldNotBe(checked);
+        }
     }
     
     public void selectMetal(Metal metal) {
