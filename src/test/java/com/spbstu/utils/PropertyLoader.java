@@ -1,7 +1,5 @@
 package com.spbstu.utils;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Properties;
