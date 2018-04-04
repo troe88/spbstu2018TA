@@ -2,9 +2,10 @@ package com.spbstu.selenidePageObject.pages;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import com.spbstu.selenidePageObject.entities.User;
 import org.openqa.selenium.support.FindBy;
 
-import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.exactText;
 
 /**
  * Created by dmitry on 21.03.2018.
@@ -38,6 +39,14 @@ public class HomePageSelenide {
     }
 
     public void checkUserLogIn(String userName) {
-        profilePhoto.shouldHave(text(userName));
+        profilePhoto.shouldHave(exactText(userName));
+    }
+
+    public void checkUserLogIn(User user) {
+        checkUserLogIn(user.getName());
+    }
+
+    public void login(User user) {
+        login(user.getLogin(), user.getPassword());
     }
 }

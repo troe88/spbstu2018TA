@@ -1,4 +1,4 @@
-package com.spbstu.selenide;
+package com.spbstu.utils;
 
 import com.codeborne.selenide.WebDriverProvider;
 import org.openqa.selenium.Dimension;
@@ -10,7 +10,8 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import java.net.MalformedURLException;
 import java.net.URI;
 
-import static com.spbstu.selenium.BaseSeleniumTest.config;
+import static com.spbstu.utils.ConfigLoader.config;
+
 
 /**
  * Created by dmitry on 28.03.2018.
@@ -26,7 +27,7 @@ public class CustomWebDriverProvider implements WebDriverProvider {
         RemoteWebDriver driver = null;
         try {
             driver = new RemoteWebDriver(
-                    URI.create(String.format("http://%s/wd/hub", config.remoteDriverAddress())).toURL(),
+                    URI.create(String.format("http://%s/wd/hub", config().remoteDriverAddress())).toURL(),
                     capabilities
             );
         } catch (MalformedURLException e) {

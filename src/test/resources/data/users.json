@@ -1,0 +1,12 @@
+{
+  "user_1": {
+    "login": "epam",
+    "password": "1234",
+    "name": "PITER"
+  },
+  "user_2": {
+    "login": "qwer",
+    "password": "4567",
+    "name": "DIMA"
+  }
+}
