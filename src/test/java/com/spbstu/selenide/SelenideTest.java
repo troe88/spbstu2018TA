@@ -17,7 +17,7 @@ public class SelenideTest extends BaseSelenideTest {
     public Object[] createData1() {
         return new Object[]{
                 new User("epam", "1234", "PITER CHAILOVSKII"),
-                new User("dima", "qwer", "lebedev"),
+//                new User("dima", "qwer", "lebedev"),
         };
     }
 
@@ -29,12 +29,11 @@ public class SelenideTest extends BaseSelenideTest {
     @Test(dataProvider = "usersDataProvider")
     public void selenideTestDataProvider(User user) {
         EpamTestSiteSelenide.homePageSelenide.open();
-        EpamTestSiteSelenide.homePageSelenide.login(user);
-
-        EpamTestSiteSelenide.homePageSelenide.checkUserLogIn(user);
+//        EpamTestSiteSelenide.homePageSelenide.login(user);
+//
+//        EpamTestSiteSelenide.homePageSelenide.checkUserLogIn(user);
     }
-
-
+    
     @Test(enabled = false)
     public void selenideTest() {
         EpamTestSiteSelenide.homePageSelenide.open();
