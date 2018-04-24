@@ -5,12 +5,16 @@ import com.spbstu.selenidePageObject.entities.User;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import ru.yandex.qatools.allure.annotations.Description;
+import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Title;
 
 import static com.spbstu.selenidePageObject.enums.HOME_PAGE_DATA.*;
 
 /**
  * Created by dmitry on 21.03.2018.
  */
+@Features("JDI test site")
 public class SelenideTest extends BaseSelenideTest {
 
     @DataProvider(name = "usersDataProvider")
@@ -26,6 +30,8 @@ public class SelenideTest extends BaseSelenideTest {
         EpamTestSiteSelenide.init();
     }
 
+    @Title("Login scenario")
+    @Description("Scenario verify that user can login on JDI site")
     @Test(dataProvider = "usersDataProvider")
     public void selenideTestDataProvider(User user) {
         EpamTestSiteSelenide.homePageSelenide.open();
@@ -33,7 +39,6 @@ public class SelenideTest extends BaseSelenideTest {
 
         EpamTestSiteSelenide.homePageSelenide.checkUserLogIn(user);
     }
-
 
     @Test(enabled = false)
     public void selenideTest() {
