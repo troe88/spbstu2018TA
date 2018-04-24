@@ -11,13 +11,12 @@ import java.util.List;
  * Created by dmitry on 21.03.2018.
  */
 
+@Getter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class Student {
     List<String> tails;
     String name;
-
-    @Getter
     Integer age;
 }
