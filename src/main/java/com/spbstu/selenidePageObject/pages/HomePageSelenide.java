@@ -4,6 +4,7 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.spbstu.selenidePageObject.entities.User;
 import org.openqa.selenium.support.FindBy;
+import ru.yandex.qatools.allure.annotations.Step;
 
 import static com.codeborne.selenide.Condition.exactText;
 
@@ -27,6 +28,7 @@ public class HomePageSelenide {
         Selenide.page(this);
     }
 
+    @Step("Open JDI test site")
     public void open() {
         Selenide.open("https://jdi-framework.github.io/tests/index.htm");
     }
@@ -42,10 +44,12 @@ public class HomePageSelenide {
         profilePhoto.shouldHave(exactText(userName));
     }
 
+    @Step("Verify user has logged in")
     public void checkUserLogIn(User user) {
         checkUserLogIn(user.getName());
     }
 
+    @Step("Login as certain user")
     public void login(User user) {
         login(user.getLogin(), user.getPassword());
     }
