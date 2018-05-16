@@ -1,8 +1,12 @@
 package com.spbstu.hw4;
 
+import com.spbstu.allure.ScreenshotAttachmentListener;
 import com.spbstu.selenide.BaseSelenideTest;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Stories;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,6 +15,9 @@ import static com.spbstu.hw4.HomeWork4Site.datesPage;
 import static com.spbstu.hw4.HomeWork4Site.homePage;
 import static com.spbstu.utils.PropertyLoader.get;
 
+@Listeners(ScreenshotAttachmentListener.class)
+@Features({"Selenide Test Suite"})
+@Stories({"Slider tests"})
 public class TestCase2 extends BaseSelenideTest {
     private static final String TEST_USER_NAME = "test.user.name";
     private static final String TEST_USER_PASSWORD = "test.user.password";
