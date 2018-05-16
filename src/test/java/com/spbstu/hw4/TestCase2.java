@@ -46,7 +46,7 @@ public class TestCase2 extends BaseSelenideTest {
         datesPage.dragSliderRange(0, 100);
         datesPage.dragSliderRange(0, 0);
         datesPage.dragSliderRange(100, 100);
-        datesPage.changeSliderRange(95, 100); // необходимая строка, так как в самом логгере присутствует ошибка
+        datesPage.changeSliderRange(65, 100); // необходимая строка, так как в самом логгере присутствует ошибка
         datesPage.dragSliderRange(30, 70);
 
         datesPage.checkLogOutput(); // the unified assert
