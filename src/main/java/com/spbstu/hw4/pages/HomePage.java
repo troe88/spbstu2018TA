@@ -24,6 +24,7 @@ public class HomePage {
             "To be multiplatform",
             "Already have good base\n(about 20 internal and\nsome external projects),\nwish to get more…");
     private static final String DIFFERENT_ELEMENTS = "Different elements";
+    public static final String DATES = "Dates";
     @FindBy(css = ".profile-photo")
     private SelenideElement profilePhoto;
 
@@ -86,6 +87,12 @@ public class HomePage {
     public void openElementsPage() {
         serviceDropdownSubmenuSidebar.stream()
                 .filter(elm -> DIFFERENT_ELEMENTS.equals(elm.getText())).findFirst()
+                .ifPresent(SelenideElement::click);
+    }
+
+    public void openDatesPage() {
+        serviceDropdownSubmenuSidebar.stream()
+                .filter(elm -> DATES.equals(elm.getText())).findFirst()
                 .ifPresent(SelenideElement::click);
     }
 

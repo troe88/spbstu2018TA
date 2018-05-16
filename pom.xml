@@ -74,7 +74,7 @@
                 <configuration>
                     <systemPropertyVariables>
                         <webdriver.chrome.driver>
-                            C:/Program Files (x86)/Google/Chrome/chromedriver.exe
+                            C:/Program Files (x86)/Google/Chrome/application/chromedriver.exe
                         </webdriver.chrome.driver>
                     </systemPropertyVariables>
                     <suiteXmlFiles>

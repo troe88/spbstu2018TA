@@ -15,7 +15,7 @@ import static com.spbstu.hw4.HomeWork4Site.elementsPage;
 import static com.spbstu.hw4.HomeWork4Site.homePage;
 import static com.spbstu.utils.PropertyLoader.get;
 
-public class EpamSiteSelenideTest extends BaseSelenideTest {
+public class TestCase1 extends BaseSelenideTest {
     private static final String TEST_USER_NAME = "test.user.name";
     private static final String TEST_USER_PASSWORD = "test.user.password";
     private static final String TEST_USER_DISPLAY_NAME = "test.user.displayName";
