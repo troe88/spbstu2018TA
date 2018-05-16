@@ -1,9 +1,5 @@
 package com.spbstu.hw4;
 
-import com.codeborne.selenide.Selenide;
-import com.spbstu.hw4.utils.Color;
-import com.spbstu.hw4.utils.Element;
-import com.spbstu.hw4.utils.Metal;
 import com.spbstu.selenide.BaseSelenideTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -19,7 +15,6 @@ public class TestCase2 extends BaseSelenideTest {
     private static final String TEST_USER_NAME = "test.user.name";
     private static final String TEST_USER_PASSWORD = "test.user.password";
     private static final String TEST_USER_DISPLAY_NAME = "test.user.displayName";
-    private static final List<String> SUBMENU_ITEMS = Arrays.asList("Support", "Dates", "Complex Table", "Simple Table", "Table with pages", "Different elements");
     private static final String TEST_SITE_HOMEPAGE = "test.site.homepage";
 
     @BeforeTest
@@ -38,23 +33,21 @@ public class TestCase2 extends BaseSelenideTest {
         homePage.login(get(TEST_USER_NAME), get(TEST_USER_PASSWORD));
         homePage.checkUserLogIn(get(TEST_USER_DISPLAY_NAME));
 
-        List<String> items = SUBMENU_ITEMS;
-        homePage.openHeaderSubmenu();
-        homePage.checkHeaderSubmenu(items);
         homePage.openSidebarSubmenu();
-        homePage.checkSidebarSubmenu(items);
         homePage.openDatesPage();
         // второй вариант, как можно перейти на страницу: непосредственное открытие
         //HomeWork4Site.elementsPage.open(get("test.site.elementspage"));
 
+        datesPage.waitForLoad();
+        // единственное, что может активировать логирование слайда -- скролл до него
+        datesPage.scrollToSliderRange();
 
         datesPage.dragSliderRange(0, 100);
         datesPage.dragSliderRange(0, 0);
         datesPage.dragSliderRange(100, 100);
+        datesPage.changeSliderRange(95, 100); // необходимая строка, так как в самом логгере присутствует ошибка
         datesPage.dragSliderRange(30, 70);
 
         datesPage.checkLogOutput(); // the unified assert
-
-        Selenide.Wait();
     }
 }

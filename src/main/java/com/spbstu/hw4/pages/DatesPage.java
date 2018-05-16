@@ -1,11 +1,11 @@
 package com.spbstu.hw4.pages;
 
-import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.*;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.interactions.internal.MouseAction;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.FluentWait;
 
 import java.awt.event.KeyEvent;
 import java.text.DateFormat;
@@ -31,7 +31,9 @@ public class DatesPage {
     @FindBy(css = "#timepicker")
     SelenideElement pickTime;
     @FindBy(css = ".ui-slider-handle")
-    ElementsCollection sliderRange;
+    private ElementsCollection sliderHandle;
+    @FindBy(css = ".ui-slider-range")
+    private SelenideElement sliderRange;
     @FindBy(css = ".logs > li")
     private ElementsCollection logEntries;
 
@@ -57,40 +59,48 @@ public class DatesPage {
         return dateFormat.format(date);
     }
 
-    public void dragSlide(SelenideElement slide, int count) {
+    public void waitForLoad() {
+        // ждём загрузки страницы
+        FluentWait<WebDriver> fw = Selenide.Wait();
+        fw.until(d -> ((JavascriptExecutor) d).executeScript("return document.readyState").equals("complete"));
+    }
+
+    private void dragSlide(SelenideElement slide, int count) {
         // 200 equivalent to +75
         //Selenide.actions().dragAndDropBy(slide, -2 + 200, 0).perform();
-        Selenide.actions().dragAndDropBy(slide, -2 + count*8/3, 0).perform();
+        //Actions act = Selenide.actions().dragAndDropBy(slide, -2 + count*8/3, 0).perform();
+        Selenide.actions().clickAndHold(slide).moveByOffset(-2 + count*8/3, 0)
+                .release().build().perform();
     }
 
     public void dragSliderRange(int min, int max) {
         if ( min > max || min < 0 || min > 100 || max > 100) // || max < 0 rejected by IDE
             throw new IllegalArgumentException("min must be less than max, min and max should be whole digit from 0 to 100.");
 
-        SelenideElement minSlider = sliderRange.get(0);
-        SelenideElement maxSlider = sliderRange.get(1);
+        SelenideElement minSlider = sliderHandle.get(0);
+        SelenideElement maxSlider = sliderHandle.get(1);
 
         int currentMin = Integer.valueOf(minSlider.text());
         int currentMax = Integer.valueOf(maxSlider.text());
 
+        String timeMax, timeMin;
         boolean reverse = false;
         if (max > currentMax) {
             dragSlide(maxSlider, max - currentMax);
+            timeMax =  getCurrentTime();
             dragSlide(minSlider, min - currentMin);
+            timeMin =  getCurrentTime();
         } else {
-            if (currentMin > max) {
-                dragSlide(minSlider, min - currentMin);
-                dragSlide(maxSlider, max - currentMax);
-                reverse = true;
-            } else {
-                dragSlide(maxSlider, max - currentMax);
-                dragSlide(minSlider, min - currentMin);
-            }
+            dragSlide(minSlider, min - currentMin);
+            timeMin =  getCurrentTime();
+            dragSlide(maxSlider, max - currentMax);
+            timeMax =  getCurrentTime();
+            reverse = true;
         }
 
         // assert later
-        String sMin = String.format("%s Range 2(From):%s link clicked", getCurrentTime(), minSlider.text());
-        String sMax = String.format("%s Range 2(To):%s link clicked", getCurrentTime(), maxSlider.text());
+        String sMin = String.format("%s Range 2(From):%s link clicked", timeMin, minSlider.text());
+        String sMax = String.format("%s Range 2(To):%s link clicked", timeMax, maxSlider.text());
         if (reverse) {
             log.addFirst(sMin);
             log.addFirst(sMax);
@@ -105,8 +115,8 @@ public class DatesPage {
         if ( min > max || min < 0 || min > 100 || max > 100) // || max < 0 rejected by IDE
             throw new IllegalArgumentException("min must be less than max, min and max should be whole digit from 0 to 100.");
 
-        SelenideElement minSlider = sliderRange.get(0);
-        SelenideElement maxSlider = sliderRange.get(1);
+        SelenideElement minSlider = sliderHandle.get(0);
+        SelenideElement maxSlider = sliderHandle.get(1);
 
         int currentMin = Integer.valueOf(minSlider.text());
         int currentMax = Integer.valueOf(maxSlider.text());
@@ -122,23 +132,21 @@ public class DatesPage {
                 shiftSlide(minSlider, Keys.LEFT, currentMin - min);
             }
         } else {
-            if (currentMin > max) {
-                shiftSlide(minSlider, Keys.LEFT, currentMin - min);
-                shiftSlide(maxSlider, Keys.LEFT, currentMax - max);
+            if (min > currentMin) {
+                shiftSlide(minSlider, Keys.RIGHT, min - currentMin);
             } else {
-                shiftSlide(maxSlider, Keys.LEFT, currentMax - max);
-                if (min > currentMin) {
-                    shiftSlide(minSlider, Keys.RIGHT, min - currentMin);
-                } else {
-                    shiftSlide(minSlider, Keys.LEFT, currentMin - min);
-                }
+                shiftSlide(minSlider, Keys.LEFT, currentMin - min);
             }
-
+            shiftSlide(maxSlider, Keys.LEFT, currentMax - max);
         }
     }
 
     public void checkLogOutput() {
-        logEntries.shouldHave(texts((List<String>)log));
+        logEntries.shouldHave(texts(new ArrayList<>(log)));
+    }
+
+    public void scrollToSliderRange() {
+        sliderRange.scrollTo();
     }
 
 }
