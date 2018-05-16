@@ -9,6 +9,7 @@ import com.spbstu.hw4.utils.Metal;
 import lombok.Getter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
+import ru.yandex.qatools.allure.annotations.Step;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -55,20 +56,6 @@ public class ElementsPage {
         log = new java.util.LinkedList<>();
     }
 
-    public void open(String page_url) {
-        Selenide.open(page_url);
-    }
-
-    public void checkPage() {
-        checkboxes.shouldHave(size(4));
-        radiobuttons.shouldHave(size(4));
-        dropdown.should(exist);
-        button.should(exist);
-        defaultButton.should(exist);
-        resultsOutput.should(exist);
-        logOutput.should(exist);
-    }
-
     private SelenideElement getElement(Element element) {
         return checkboxes.get(element.ordinal());
     }
@@ -91,6 +78,23 @@ public class ElementsPage {
         return dropdownItems.get(color.ordinal());
     }
 
+    @Step
+    public void open(String page_url) {
+        Selenide.open(page_url);
+    }
+
+    @Step
+    public void checkPage() {
+        checkboxes.shouldHave(size(4));
+        radiobuttons.shouldHave(size(4));
+        dropdown.should(exist);
+        button.should(exist);
+        defaultButton.should(exist);
+        resultsOutput.should(exist);
+        logOutput.should(exist);
+    }
+
+    @Step
     public void selectElement(Element element, boolean state) {
         SelenideElement selenideElement = getElementCheckbox(element);
         if (state != selenideElement.isSelected()) {
@@ -105,7 +109,8 @@ public class ElementsPage {
             selenideElement.shouldNotBe(checked);
         }
     }
-    
+
+    @Step
     public void selectMetal(Metal metal) {
         SelenideElement selenideElement = getMetal(metal);
         selenideElement.click();
@@ -115,6 +120,7 @@ public class ElementsPage {
         selenideElement.shouldBe(selected);
     }
 
+    @Step
     public void selectColor(Color color) {
         SelenideElement selenideElement = getColor(color);
         dropdown.click();
@@ -125,6 +131,7 @@ public class ElementsPage {
         dropdown.shouldHave(value(color.getValue()));
     }
 
+    @Step
     public void checkLogOutput() {
         logEntries.shouldHave(texts(log));
     }

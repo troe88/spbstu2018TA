@@ -4,6 +4,7 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.support.FindBy;
+import ru.yandex.qatools.allure.annotations.Step;
 
 import java.util.Arrays;
 import java.util.List;
@@ -68,10 +69,16 @@ public class HomePage {
         Selenide.page(this);
     }
 
+    public boolean getIsLogined() {
+        return !profilePhoto.text().isEmpty();
+    }
+
+    @Step
     public void open(String page_url) {
         Selenide.open(page_url);
     }
 
+    @Step
     public void login(String login, String password) {
         if (!loginField.isDisplayed())
             profilePhoto.click();
@@ -80,34 +87,36 @@ public class HomePage {
         submit.pressEnter();
     }
 
+    @Step
     public void openHeaderSubmenu() {
         serviceDropdownHeader.click();
     }
 
+    @Step
     public void openSidebarSubmenu() {
         serviceDropdownSidebar.click();
     }
 
+    @Step
     public void openElementsPage() {
         serviceDropdownSubmenuSidebar.stream()
                 .filter(elm -> DIFFERENT_ELEMENTS.equals(elm.getText())).findFirst()
                 .ifPresent(SelenideElement::click);
     }
 
+    @Step
     public void openDatesPage() {
         serviceDropdownSubmenuSidebar.stream()
                 .filter(elm -> DATES.equals(elm.getText())).findFirst()
                 .ifPresent(SelenideElement::click);
     }
 
+    @Step
     public void checkUserLogIn(String userName) {
         profilePhoto.should(have(text(userName)));
     }
 
-    public boolean getIsLogined() {
-        return !profilePhoto.text().isEmpty();
-    }
-
+    @Step
     public void logout() {
         if (!getIsLogined())
             return;
@@ -116,6 +125,7 @@ public class HomePage {
         logout.click();
     }
 
+    @Step
     public void checkInterface() {
         mainTitle.should(have(text(TEXT_TITLE)));
         mainText.should(have(text(TEXT_CONTENTS)));
@@ -124,10 +134,12 @@ public class HomePage {
         benefitTxt.shouldHave(texts(LIST_OF_BENEFIT));
     }
 
+    @Step
     public void checkSidebarSubmenu(List<String> items) {
         serviceDropdownSubmenuSidebar.shouldHave(texts(items));
     }
 
+    @Step
     public void checkHeaderSubmenu(List<String> items) {
         serviceDropdownSubmenuHeader.shouldHave(texts(items));
     }

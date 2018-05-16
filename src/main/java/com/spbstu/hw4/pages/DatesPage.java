@@ -6,6 +6,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.FluentWait;
+import ru.yandex.qatools.allure.annotations.Step;
 
 import java.awt.event.KeyEvent;
 import java.text.DateFormat;
@@ -43,6 +44,13 @@ public class DatesPage {
         log = new LinkedList<>();
     }
 
+    private String getCurrentTime() {
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
+
+    @Step
     private void shiftSlide(SelenideElement slide, Keys direction, int count) {
         if ( count < 0) // || max < 0 rejected by IDE
             throw new IllegalArgumentException("count must be nonnegative");
@@ -53,12 +61,7 @@ public class DatesPage {
         slide.sendKeys(cmd);
     }
 
-    private String getCurrentTime() {
-        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-        Date date = new Date();
-        return dateFormat.format(date);
-    }
-
+    @Step
     public void waitForLoad() {
         // ждём загрузки страницы
         FluentWait<WebDriver> fw = Selenide.Wait();
@@ -73,6 +76,7 @@ public class DatesPage {
                 .release().build().perform();
     }
 
+    @Step
     public void dragSliderRange(int min, int max) {
         if ( min > max || min < 0 || min > 100 || max > 100) // || max < 0 rejected by IDE
             throw new IllegalArgumentException("min must be less than max, min and max should be whole digit from 0 to 100.");
@@ -111,6 +115,7 @@ public class DatesPage {
         // maybe extra assert for actual getting value?
     }
 
+    @Step
     public void changeSliderRange(int min, int max) {
         if ( min > max || min < 0 || min > 100 || max > 100) // || max < 0 rejected by IDE
             throw new IllegalArgumentException("min must be less than max, min and max should be whole digit from 0 to 100.");
@@ -141,10 +146,12 @@ public class DatesPage {
         }
     }
 
+    @Step
     public void checkLogOutput() {
         logEntries.shouldHave(texts(new ArrayList<>(log)));
     }
 
+    @Step
     public void scrollToSliderRange() {
         sliderRange.scrollTo();
     }
