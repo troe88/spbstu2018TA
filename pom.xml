@@ -207,6 +207,9 @@
                 <groupId>ru.yandex.qatools.allure</groupId>
                 <artifactId>allure-maven-plugin</artifactId>
                 <version>2.5</version>
+                <configuration>
+                    <reportDirectory>site</reportDirectory>
+                </configuration>
             </plugin>
         </plugins>
     </reporting>
