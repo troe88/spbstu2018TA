@@ -98,6 +98,7 @@ public class DatesPage {
             log.addFirst(sMax);
             log.addFirst(sMin);
         }
+        // maybe extra assert for actual getting value?
     }
 
     public void changeSliderRange(int min, int max) {
