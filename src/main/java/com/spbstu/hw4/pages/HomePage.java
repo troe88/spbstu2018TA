@@ -24,7 +24,7 @@ public class HomePage {
             "To be multiplatform",
             "Already have good base\n(about 20 internal and\nsome external projects),\nwish to get more…");
     private static final String DIFFERENT_ELEMENTS = "Different elements";
-    public static final String DATES = "Dates";
+    private static final String DATES = "Dates";
     @FindBy(css = ".profile-photo")
     private SelenideElement profilePhoto;
 
@@ -36,6 +36,9 @@ public class HomePage {
 
     @FindBy(css = "form .btn-login")
     private SelenideElement submit;
+
+    @FindBy(css = ".logout > .btn-login")
+    private SelenideElement logout;
 
     @FindBy(css = ".main-title")
     private SelenideElement mainTitle;
@@ -98,6 +101,18 @@ public class HomePage {
 
     public void checkUserLogIn(String userName) {
         profilePhoto.should(have(text(userName)));
+    }
+
+    public boolean getIsLogined() {
+        return !profilePhoto.text().isEmpty();
+    }
+
+    public void logout() {
+        if (!getIsLogined())
+            return;
+        if(!logout.isDisplayed())
+            profilePhoto.click();
+        logout.click();
     }
 
     public void checkInterface() {
