@@ -30,9 +30,9 @@ public class TestCase2 extends BaseSelenideTest {
     @Test
     public void test() {
         homePage.open(get(TEST_SITE_HOMEPAGE));
-        //homePage.logout();
-        //homePage.login(get(TEST_USER_NAME), get(TEST_USER_PASSWORD));
-        //homePage.checkUserLogIn(get(TEST_USER_DISPLAY_NAME));
+        homePage.logout();
+        homePage.login(get(TEST_USER_NAME), get(TEST_USER_PASSWORD));
+        homePage.checkUserLogIn(get(TEST_USER_DISPLAY_NAME));
 
         homePage.openSidebarSubmenu();
         homePage.openDatesPage();

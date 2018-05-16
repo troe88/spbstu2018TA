@@ -73,7 +73,8 @@ public class HomePage {
     }
 
     public void login(String login, String password) {
-        profilePhoto.click();
+        if (!loginField.isDisplayed())
+            profilePhoto.click();
         loginField.sendKeys(login);
         passwordField.sendKeys(password);
         submit.pressEnter();
