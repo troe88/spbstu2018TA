@@ -8,8 +8,10 @@ import org.testng.annotations.Test;
 import ru.yandex.qatools.allure.annotations.Features;
 import ru.yandex.qatools.allure.annotations.Stories;
 
+// TODO is that really necessary ?
 import java.util.Arrays;
 import java.util.List;
+// !TODO
 
 import static com.spbstu.hw4.HomeWork4Site.datesPage;
 import static com.spbstu.hw4.HomeWork4Site.homePage;
@@ -36,6 +38,9 @@ public class TestCase2 extends BaseSelenideTest {
      */
     @Test
     public void test() {
+        // TODO hm..., HomePage.class should incapsulate the whole information about page.
+        // TODO it was not really good to pass part of url there...
+        // TODO anyway, this test looks pretty good, wel done !
         homePage.open(get(TEST_SITE_HOMEPAGE));
         homePage.logout();
         homePage.login(get(TEST_USER_NAME), get(TEST_USER_PASSWORD));
@@ -50,6 +55,8 @@ public class TestCase2 extends BaseSelenideTest {
         // единственное, что может активировать логирование слайда -- скролл до него
         datesPage.scrollToSliderRange();
 
+        // TODO thats okay, but you can do it a bit easier via java script.
+        // TODO take a look on documentations for this angular element...
         datesPage.dragSliderRange(0, 100);
         datesPage.dragSliderRange(0, 0);
         datesPage.dragSliderRange(100, 100);

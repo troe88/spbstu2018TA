@@ -76,7 +76,7 @@
                 <configuration>
                     <systemPropertyVariables>
                         <webdriver.chrome.driver>
-                            C:/Program Files (x86)/Google/Chrome/application/chromedriver.exe
+                            C:/Selenium/chromedriver.exe
                         </webdriver.chrome.driver>
                     </systemPropertyVariables>
                     <suiteXmlFiles>
@@ -204,6 +204,18 @@
             <groupId>com.epam.jdi</groupId>
             <artifactId>jdi-uitest-web</artifactId>
             <version>${jdi.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>1.2.5</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>1.2.4</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
