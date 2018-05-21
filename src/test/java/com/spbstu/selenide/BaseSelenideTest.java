@@ -1,15 +1,20 @@
 package com.spbstu.selenide;
 
 import com.codeborne.selenide.Configuration;
-import com.spbstu.selenium.BaseSeleniumTest;
 import org.testng.annotations.BeforeSuite;
 
-/**
- * Created by dmitry on 21.03.2018.
- */
-public class BaseSelenideTest extends BaseSeleniumTest {
+public class BaseSelenideTest {
+
     @BeforeSuite
-    public void beforeSuiteSelenide() {
-        Configuration.timeout = 5000;
+    public void beforeSuite() {
+        Configuration.browser = "CHROME";
+        Configuration.startMaximized = true;
+        Configuration.timeout = 4000;
+        Configuration.pollingInterval = 100; // "-Dselenide.pollingInterval=50"
+        Configuration.collectionsPollingInterval = 300;
+
+        Configuration.reportsFolder = "build/reports/tests"; // в неё складываются скриншоты
+
+
     }
 }

@@ -1,5 +1,6 @@
 package com.spbstu;
 
+import com.spbstu.selenium.BaseSeleniumTest;
 import com.spbstu.utils.PropertyLoader;
 import com.spbstu.utils.TestConfig;
 import org.aeonbits.owner.ConfigFactory;
@@ -9,7 +10,7 @@ import org.testng.annotations.Test;
 /**
  * Created by dmitry on 28.02.2018.
  */
-public class SimpleTest {
+public class SimpleTest extends BaseSeleniumTest {
 
     private TestConfig cfg;
 
