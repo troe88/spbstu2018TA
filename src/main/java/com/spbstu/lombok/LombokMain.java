@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
  */
 public class LombokMain {
     public static void main(String[] args) {
-        val student = new Student(Arrays.asList("math", "oop"), "smyk", 12);
+        Student student = new Student(Arrays.asList("math", "oop"), "smyk", 12);
         System.out.println(student);
 
         ArrayList<Student> students = new ArrayList<Student>() {{

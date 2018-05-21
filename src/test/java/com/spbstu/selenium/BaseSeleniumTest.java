@@ -8,10 +8,10 @@ import org.testng.annotations.BeforeSuite;
  * Created by dmitry on 07.03.2018.
  */
 public class BaseSeleniumTest {
-    public static TestConfig config;
+    public TestConfig config;
 
     @BeforeSuite
     public void beforeSuite() {
-        BaseSeleniumTest.config = ConfigFactory.create(TestConfig.class);
+        config = ConfigFactory.create(TestConfig.class);
     }
 }

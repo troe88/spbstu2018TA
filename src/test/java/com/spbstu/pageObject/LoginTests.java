@@ -1,14 +1,14 @@
 package com.spbstu.pageObject;
 
+import com.spbstu.EpamTestSite;
+import com.spbstu.selenium.BaseSeleniumTest;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
-/**
- * Created by dmitry on 14.03.2018.
- */
-public class LoginTests {
+public class LoginTests extends BaseSeleniumTest {
 
     WebDriver driver;
 
@@ -22,9 +22,15 @@ public class LoginTests {
     @Test
     public void loginTest() {
         EpamTestSite.homePage.open();
-        EpamTestSite.homePage.login("epam", "1234");
+        EpamTestSite.homePage.login(config.name(), config.password());
 
-
+        EpamTestSite.contactFormPage.open();
         // TODO assert
     }
+
+    @AfterSuite
+    public void afterSuite() {
+        driver.close();
+    }
+
 }
